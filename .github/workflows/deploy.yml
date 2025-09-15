@@ -34,4 +34,10 @@ jobs:
             - name : Tester mon appli
               run: |
                 sleep 10 # attendre un peu le déploiement
+                RESPONSE=$(curl -s "https://ezyinfo.github.io/githubactions/test.html" | tr -d '\n' | xargs)
+                if [ "$RESPONSE" != "OK" ]; then
+                    echo "La page ne renvoie pas OK mais: $RESPONSE"
+                    exit 1
+                fi
+                echo "Page OK ✅"
 
